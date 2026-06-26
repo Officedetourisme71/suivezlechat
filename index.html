@@ -1,247 +1,91 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Suivez le chat, la balade des élèves de l'école primaire de la clayette </title>
-
-  <script src="https://cdn.tailwindcss.com"></script>
-
-  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
-  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-
-  <!-- 🔥 LIB GPX -->
-  <script src="https://unpkg.com/leaflet-gpx/gpx.js"></script>
-
-  <style>
-    body {
-      background: linear-gradient(to bottom right, #1e3a8a, #facc15);
-      font-family: Arial, sans-serif;
-    }
-
-    #map { height: 400px; }
-
-    .card {
-      transition: all 0.3s ease;
-    }
-
-    .progress-bar {
-      height: 8px;
-      background-color: #e5e7eb;
-      border-radius: 9999px;
-      overflow: hidden;
-      margin-top: 0.5rem;
-    }
-
-    .progress-fill {
-      height: 100%;
-      width: 0;
-      background-color: #facc15;
-    }
-  </style>
-</head>
-
-<body class="text-white min-h-screen flex flex-col">
-
-<header class="text-center py-6">
-  <h1 class="text-3xl font-bold">Suivez le chat, la balade des élèves de l'école primaire de la clayette</h1>
-  <p>Découvrez l'histoire cachée de la clayette</p>
-</header>
-
-<div class="w-full max-w-6xl mx-auto px-4 mb-6">
-  <div id="map" class="rounded-lg"></div>
-</div>
-
-<main id="etapes" class="grid md:grid-cols-2 gap-6 px-4 pb-20 max-w-6xl mx-auto"></main>
-
-<button onclick="resetProgress()" class="fixed bottom-4 right-4 bg-black text-white px-4 py-2 rounded">
-  Reset
-</button>
-
-<script>
-
-// 🔥 GPX + CARTE
-const map = L.map("map").setView([46.2122, 4.25556], 14);
-
-L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(map);
-
-// 🔥 CHARGEMENT GPX
-new L.GPX("parcours.gpx", {
-  async: true,
-  polyline_options: {
-    color: "yellow",
-    weight: 5,
-    opacity: 0.8
-  },
-  marker_options: {
-    startIconUrl: "https://leafletjs.com/examples/custom-icons/leaf-green.png",
-    endIconUrl: "https://leafletjs.com/examples/custom-icons/leaf-red.png",
-    shadowUrl: "https://leafletjs.com/examples/custom-icons/leaf-shadow.png"
-  }
-})
-.on("loaded", function(e) {
-  map.fitBounds(e.target.getBounds());
-})
-.addTo(map);
-
-
-// 7 ÉTAPES
 const etapesData = [
-  {
-    titre: "1. La  rencontre avec le chat",
-    personnage: "Le chat et les enfants",
-    texte: "Notre première rencontre.",
+
+{
+    titre: "1. Départ de la balade",
+    personnage: "Le chat ",
+    texte: "Bienvenue dans cette balade audio. Laissez-vous guider par les enfants et découvrez les histoires de notre territoire.",
     fichier: "Audio1.mp3",
     coords: [46.212159, 4.255637]
-  },
-  {
-    titre: "2. L’étang noir",
-    personnage: "Gilda et son fils",
-    texte: "Une lumière étrange apparaît la nuit...",
-    fichier: "conte2.mp3",
+},
+
+{
+    titre: "2. Point d'arrêt n°2",
+    personnage: "Les élèves",
+    texte: "Découvrez la deuxième histoire racontée par les enfants.",
+    fichier: "Audio2.mp3",
     coords: [46.212364, 4.255125]
-  },
-  {
-    titre: "3. St pierre et st paul",
-    personnage: "Les statues magiques",
-    texte: "Un symbole laissé pour guider les âmes...",
-    fichier: "conte3.mp3",
+},
+
+{
+    titre: "3. Point d'arrêt n°3",
+    personnage: "Les élèves",
+    texte: "Les enfants vous racontent ce lieu chargé d'histoire.",
+    fichier: "Audio3.mp3",
     coords: [46.214069, 4.255620]
-  },
-  {
-    titre: "4. Les faillettes",
-    personnage: "Un garde",
-    texte: "Ce passage n’apparaît qu’à ceux qui savent regarder...",
-    fichier: "conte4.mp3",
+},
+
+{
+    titre: "4. Point d'arrêt n°4",
+    personnage: "Les élèves",
+    texte: "Une nouvelle étape de la balade.",
+    fichier: "Audio4.mp3",
     coords: [46.216000, 4.254000]
-  },
-  {
-    titre: "5. Le pont combabon",
-    personnage: "Une villageoise",
-    texte: "On dit que ce lieu murmure des histoires anciennes...",
-    fichier: "conte6.mp3",
+},
+
+{
+    titre: "5. Point d'arrêt n°5",
+    personnage: "Les élèves",
+    texte: "Prenez le temps d'écouter cette nouvelle histoire.",
+    fichier: "Audio5.mp3",
     coords: [46.217000, 4.253000]
-  },
-  {
-    titre: "6. La pierre qui vire",
-    personnage: "Un enfant",
-    texte: "Des rires résonnent encore dans cette maison vide...",
-    fichier: "conte5.mp3",
+},
+
+{
+    titre: "6. Point d'arrêt n°6",
+    personnage: "Les élèves",
+    texte: "Les enfants vous invitent à observer ce lieu autrement.",
+    fichier: "Audio6.mp3",
     coords: [46.218000, 4.252000]
-  },
-  {
-    titre: "7. Dernier audio",
-    personnage: "Le nom des enfants",
-    texte: "Mettre le nom des enfants",
-    fichier: "conte7.mp3",
+},
+
+{
+    titre: "7. Point d'arrêt n°7",
+    personnage: "Les élèves",
+    texte: "Un nouvel épisode de la balade commence.",
+    fichier: "Audio7.mp3",
     coords: [46.219000, 4.251000]
-  }
+},
+
+{
+    titre: "8. Point d'arrêt n°8",
+    personnage: "Les élèves",
+    texte: "Découvrez une nouvelle anecdote racontée par les enfants.",
+    fichier: "Audio8.mp3",
+    coords: [46.220000, 4.250000]
+},
+
+{
+    titre: "9. Point d'arrêt n°9",
+    personnage: "Les élèves",
+    texte: "Poursuivez votre promenade avec cette nouvelle histoire.",
+    fichier: "Audio9.mp3",
+    coords: [46.221000, 4.249000]
+},
+
+{
+    titre: "10. Point d'arrêt n°10",
+    personnage: "Les élèves",
+    texte: "Encore une étape avant la fin de la balade.",
+    fichier: "Audio10.mp3",
+    coords: [46.222000, 4.248000]
+},
+
+{
+    titre: "11. Remerciements",
+    personnage: "Les élèves de l'école primaire de Baudemont",
+    texte: "Merci d'avoir suivi cette balade audio réalisée par les élèves de l'école primaire de Baudemont. À bientôt !",
+    fichier: "Audio11.mp3",
+    coords: [46.223000, 4.247000]
+}
+
 ];
-
-// progression
-let etapeDebloquee = localStorage.getItem("progression")
-  ? parseInt(localStorage.getItem("progression"))
-  : 0;
-
-const container = document.getElementById("etapes");
-const markers = [];
-
-// MAJ affichage
-function updateUnlock() {
-  document.querySelectorAll(".card").forEach((card, i) => {
-    const audio = card.querySelector("audio");
-
-    if (i <= etapeDebloquee) {
-      card.classList.remove("opacity-50");
-      audio.disabled = false;
-    } else {
-      card.classList.add("opacity-50");
-      audio.disabled = true;
-    }
-  });
-}
-
-// création
-etapesData.forEach((etape, index) => {
-
-  const card = document.createElement("div");
-  card.className = "card bg-white text-black p-5 rounded-xl shadow";
-
-  if (index !== 0) card.classList.add("opacity-50");
-
-  card.innerHTML = `
-    <h2 class="font-bold text-lg">${etape.titre}</h2>
-    <p class="italic text-sm">👤 ${etape.personnage}</p>
-    <p class="text-sm my-2">${etape.texte}</p>
-
-    <audio id="audio${index}" controls class="w-full">
-      <source src="audio/${etape.fichier}" type="audio/mpeg">
-    </audio>
-
-    <div class="progress-bar">
-      <div id="progress${index}" class="progress-fill"></div>
-    </div>
-
-    <button onclick="focusOnMarker(${index})"
-      class="mt-3 bg-yellow-400 px-3 py-2 rounded">
-      📍 Voir sur la carte
-    </button>
-  `;
-
-  container.appendChild(card);
-
-  const audio = card.querySelector(`#audio${index}`);
-  const progress = card.querySelector(`#progress${index}`);
-
-  audio.addEventListener("timeupdate", () => {
-    const percent = (audio.currentTime / audio.duration) * 100;
-    progress.style.width = percent + "%";
-  });
-
-  audio.addEventListener("ended", () => {
-    if (index === etapeDebloquee) {
-      etapeDebloquee++;
-      localStorage.setItem("progression", etapeDebloquee);
-
-      updateUnlock();
-
-      alert("✨ Nouvelle étape débloquée !");
-
-      if (markers[etapeDebloquee]) {
-        focusOnMarker(etapeDebloquee);
-      }
-    }
-  });
-
-  etape.scrollToCard = () => {
-    card.scrollIntoView({ behavior: "smooth" });
-  };
-
-  const marker = L.marker(etape.coords).addTo(map);
-
-  marker.bindPopup(`<b>${etape.titre}</b>`)
-    .on("click", etape.scrollToCard);
-
-  markers.push(marker);
-
-});
-
-// focus
-function focusOnMarker(index) {
-  map.setView(markers[index].getLatLng(), 16);
-  markers[index].openPopup();
-}
-
-// reset
-function resetProgress() {
-  localStorage.removeItem("progression");
-  location.reload();
-}
-
-// init
-updateUnlock();
-
-</script>
-
-</body>
-</html>
