@@ -1,0 +1,26 @@
+<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Balade audio de Baudemont</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet-gpx/gpx.js"></script>
+<style>body{font-family:Arial;background:linear-gradient(135deg,#1e3a8a,#facc15)}#map{height:420px}</style></head>
+<body class="text-white"><div class="max-w-5xl mx-auto p-4"><h1 class="text-4xl font-bold text-center">Balade audio de Baudemont</h1><p class="text-center mb-4">Réalisée avec les élèves de l'école primaire de Baudemont</p><div id="map"></div><div id="etapes" class="grid md:grid-cols-2 gap-4 mt-4"></div></div>
+<script>
+const map=L.map('map').setView([46.28,4.28],15);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+new L.GPX('balade baudemont dernière version.gpx',{async:true}).on('loaded',e=>map.fitBounds(e.target.getBounds())).addTo(map);
+const etapesData=[{titre:"1. Le chat et le château",personnage:"Les élèves de Baudemont",texte:"Écoutez l'histoire de ce lieu.",fichier:"Audio1.mp3",coords:[46.293081,4.304922]},
+{titre:"2. La place du champ de foire",personnage:"Les élèves de Baudemont",texte:"Écoutez l'histoire de ce lieu.",fichier:"Audio2.mp3",coords:[46.293998,4.302834]},
+{titre:"3. La tour de l&#x27;enfer",personnage:"Les élèves de Baudemont",texte:"Écoutez l'histoire de ce lieu.",fichier:"Audio3.mp3",coords:[46.295055,4.297096]},
+{titre:"4. La croix de pelon",personnage:"Les élèves de Baudemont",texte:"Écoutez l'histoire de ce lieu.",fichier:"Audio4.mp3",coords:[46.299927,4.287363]},
+{titre:"5. Le lavoir",personnage:"Les élèves de Baudemont",texte:"Écoutez l'histoire de ce lieu.",fichier:"Audio5.mp3",coords:[46.301986,4.283852]},
+{titre:"6. La maison aux boules",personnage:"Les élèves de Baudemont",texte:"Écoutez l'histoire de ce lieu.",fichier:"Audio6.mp3",coords:[46.302361,4.281827]},
+{titre:"7. La plus vieille maison de baudemont",personnage:"Les élèves de Baudemont",texte:"Écoutez l'histoire de ce lieu.",fichier:"Audio7.mp3",coords:[46.30293,4.277077]},
+{titre:"8. L&#x27;ancien cimetière",personnage:"Les élèves de Baudemont",texte:"Écoutez l'histoire de ce lieu.",fichier:"Audio8.mp3",coords:[46.301694,4.277389]},
+{titre:"9. La barrière et le trésor",personnage:"Les élèves de Baudemont",texte:"Écoutez l'histoire de ce lieu.",fichier:"Audio9.mp3",coords:[46.293385,4.28639]},
+{titre:"10. L&#x27;ordre de malte",personnage:"Les élèves de Baudemont",texte:"Écoutez l'histoire de ce lieu.",fichier:"Audio10.mp3",coords:[46.293292,4.287246]},
+{titre:"11. Les forges ",personnage:"Les élèves de Baudemont",texte:"Écoutez l'histoire de ce lieu.",fichier:"Audio11.mp3",coords:[46.293092,4.298673]},
+];
+const c=document.getElementById('etapes');const markers=[];
+etapesData.forEach((e,i)=>{const d=document.createElement('div');d.className='bg-white text-black rounded p-4';d.innerHTML=`<h2><b>${e.titre}</b></h2><p>${e.texte}</p><audio controls class="w-full"><source src="audio/${e.fichier}" type="audio/mpeg"></audio><button class="mt-2 bg-yellow-400 px-3 py-2 rounded">Voir sur la carte</button>`;c.appendChild(d);const m=L.marker(e.coords).addTo(map).bindPopup(e.titre);markers.push(m);d.querySelector('button').onclick=()=>{map.setView(m.getLatLng(),17);m.openPopup();};});
+</script></body></html>
